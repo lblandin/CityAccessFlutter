@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "11725069978",
+    "firebase_url": "https://cityaccessflutter.firebaseio.com",
+    "project_id": "cityaccessflutter",
+    "storage_bucket": "cityaccessflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11725069978:android:57694e51558b9b66a5c923",
+        "android_client_info": {
+          "package_name": "fr.mds.cityaccess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11725069978-j8vjbkb2bl4s8em3hgbrmlkfini8fuq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwFqGqxhv067AZL7MrpjPml5DCOgm84B4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11725069978-j8vjbkb2bl4s8em3hgbrmlkfini8fuq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
