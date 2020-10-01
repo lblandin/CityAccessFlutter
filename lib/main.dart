@@ -1,10 +1,12 @@
-import 'package:cityaccess/menu/add.dart';
-import 'package:cityaccess/menu/home.dart';
-import 'package:cityaccess/menu/listActu.dart';
-import 'package:cityaccess/menu/listTerrain.dart';
-import 'package:cityaccess/menu/profil.dart';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
+import 'menu/add.dart';
+import 'menu/home.dart';
+import 'menu/listActu.dart';
+import 'menu/listTerrain.dart';
+import 'menu/profil.dart';
 
 void main() {
   runApp(MyApp());
