@@ -1,3 +1,4 @@
+import 'package:CityAccess/maps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-      child: Text("Home Page"),
+      child:
+      IconButton(
+        icon: Icon(Icons.map),
+        onPressed: () {
+          Navigator.push(context, new MaterialPageRoute(
+              builder: (context) => Map()
+          ));
+        }
+      ),
       )
     );
 

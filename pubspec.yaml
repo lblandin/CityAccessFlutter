@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  font_awesome_flutter: '>= 4.7.0'
   flutter:
     sdk: flutter
   curved_navigation_bar:
@@ -32,6 +33,7 @@ dependencies:
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
+  google_maps_flutter: ^0.5.11
   introduction_screen: ^1.0.7
   flutter_launcher_icons: "^0.8.0"
   flutter_test:
