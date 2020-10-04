@@ -51,8 +51,8 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: terrains.length == 0
-            ? Container(
-                child: Text("fdfs"),
+            ? Center(
+                child: Text("Loading..."),
               )
             : CustomScrollView(slivers: <Widget>[
                 SliverAppBar(

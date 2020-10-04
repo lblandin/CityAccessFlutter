@@ -1,3 +1,4 @@
+import 'package:CityAccess/model/news.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -14,15 +15,28 @@ class ListActuPage extends StatefulWidget{
 }
 
 class _ListActuPageState extends State<ListActuPage> {
-  final refDatabase = FirebaseDatabase.instance;
-
-  final ActuName = 'nom';
-  DatabaseReference _actuRef;
+  List<News> desNews = [];
 
   @override
   void initState() {
-    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-    _actuRef = database.reference().child("News");
+    DatabaseReference reference = FirebaseDatabase.instance.reference();
+    reference.child('News').once().then((DataSnapshot snapshot) {
+      var keys = snapshot.value.keys;
+      var data = snapshot.value;
+      desNews.clear();
+      for (var key in keys) {
+        News news = new News(
+            data[key]["auteur"],
+            data[key]["contenu"],
+            data[key]["date"],
+            data[key]["id"],
+            data[key]["titre"]);
+        desNews.add(news);
+      }
+      setState(() {
+        print('lenght : ${desNews.length}');
+      });
+    });
 
     super.initState();
   }
@@ -30,47 +44,73 @@ class _ListActuPageState extends State<ListActuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-          child: FirebaseAnimatedList(
-              shrinkWrap: true,
-              query: _actuRef,
-              itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                  Animation<double> animation, int index) {
-                return new Card(
+        backgroundColor: Colors.white,
+        body: desNews.length == 0
+            ? Center(
+          child: Text("Loading..."),
+        )
+            : CustomScrollView(slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: true,
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.green,
+            actions: [
+              Icon(
+                Icons.search,
+              ),
+              SizedBox(width: 10,)
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(
+                "Liste des Actualités",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              background: Image.asset(
+                "assets/bg_news.jpg",
+                color: Colors.black54,
+                colorBlendMode: BlendMode.darken,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) => Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Card(
+                  elevation: 5,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              snapshot.value['titre'],
+                              desNews[index].titre,
                               style: TextStyle(
                                   fontSize: 25,
-                                  fontWeight: FontWeight.bold
-                              ),
+                                  fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                              snapshot.value['auteur'],
-                            ),
-                            Text(
-                              snapshot.value['date']
-                            )
+                            Text(desNews[index].date),
+                            Text(desNews[index].auteur),
+
                           ],
                         ),
                       ),
                       IconButton(
                         icon: Icon(Icons.delete),
-                        onPressed: () =>
-                            _actuRef.child(snapshot.key).remove(),
                       ),
                     ],
                   ),
-                );
-              })),
-    );
+                ),
+              ),
+              childCount : desNews.length,
+            ),
+          )
+        ]));
   }
 }
