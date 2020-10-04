@@ -39,7 +39,7 @@ class _BasketballPageState extends State<BasketballPage> {
       Nulla facilisi. Vestibulum aliquam auctor aliquet. Quisque egestas ullamcorper venenatis. Aliquam condimentum tortor 
       eget dolor tempus, ut scelerisque nibh tristique. Pellentesque metus erat, dapibus nec sapien sit amet, congue rutrum 
       mi. Etiam ligula sapien, cursus interdum semper sit amet, mollis eu mauris. Integer nec egestas mauris, id scelerisque 
-      libero. Ut nibh purus, accumsan id ultricies id, gravida nec turpis. Suspendisse et facilisis diam.''',
+      libero. Ut nibh purus, accumsan id ultricies id, gravida nec turpis. Suspendisse et facilisis.''',
           style: new TextStyle(
             color: Colors.grey[850],
             fontSize: 16.0,
