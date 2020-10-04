@@ -127,15 +127,8 @@ class _HomePageState extends State<HomePage> {
     return new MaterialApp(
         title: "",
         home: new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Flutter App'),
-            ),
             body: new ListView(
               children: <Widget>[
-                new Image.asset(
-                    'images/tutorialChannel.png',
-                    fit: BoxFit.cover
-                ),
                 //You can add more widget bellow
                 titleSection,
                 ButtonsMapSection,
