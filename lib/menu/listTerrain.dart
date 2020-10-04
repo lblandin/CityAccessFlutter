@@ -1,4 +1,5 @@
 import 'package:CityAccess/Other/FadeAnimation.dart';
+import 'package:CityAccess/model/terrain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -15,15 +16,32 @@ class ListTerrainPage extends StatefulWidget {
 }
 
 class _ListTerrainPageState extends State<ListTerrainPage> {
-  final refDatabase = FirebaseDatabase.instance;
-
-  final terrainName = 'nom';
-  DatabaseReference _terrainRef;
+  List<Terrain> terrains = [];
 
   @override
   void initState() {
-    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-    _terrainRef = database.reference().child("Terrain");
+    DatabaseReference reference = FirebaseDatabase.instance.reference();
+    reference.child('Terrain').once().then((DataSnapshot snapshot) {
+      var keys = snapshot.value.keys;
+      var data = snapshot.value;
+      terrains.clear();
+      for (var key in keys) {
+        Terrain terrain = new Terrain(
+            data[key]["id"],
+            data[key]["nom"],
+            data[key]["description"],
+            data[key]["adresse"],
+            data[key]["cp"],
+            data[key]["ville"],
+            data[key]["etat"],
+            data[key]["latitude"],
+            data[key]["longitude"]);
+        terrains.add(terrain);
+      }
+      setState(() {
+        print('lenght : ${terrains.length}');
+      });
+    });
 
     super.initState();
   }
@@ -32,72 +50,59 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("assets/bg_liste.png"),
-                fit: BoxFit.fill,
-              )),
-              child: Stack(
-                children: [
-                  Positioned(
-                    width: MediaQuery.of(context).size.width*0.15,
-                    height: MediaQuery.of(context).size.width*0.15,
-                    left: MediaQuery.of(context).size.width*0.25,
-                    top: 40,
-                    child: FadeAnimation(1,  Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/basketball.png"),
-                      )),
-                    ),),
+        body: terrains.length == 0
+            ? Center(
+                child: Text("Loading..."),
+              )
+            : CustomScrollView(slivers: <Widget>[
+                SliverAppBar(
+                  expandedHeight: 200,
+                  pinned: true,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Colors.green,
+                  actions: [
+                    Icon(
+                      Icons.search,
+                    ),
+                    SizedBox(width: 10,)
+                  ],
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    title: Text(
+                      "Liste des terrains",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    background: Image.asset(
+                      "assets/stade.jpg",
+                      color: Colors.black54,
+                      colorBlendMode: BlendMode.darken,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  Positioned(
-                    width: MediaQuery.of(context).size.width*0.15,
-                    height: MediaQuery.of(context).size.width*0.15,
-                    left: MediaQuery.of(context).size.width*0.55,
-                    top: 55,
-                    child: FadeAnimation( 1.4, Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/football.png"),
-                          )),
-                    ),)
-                  )
-                ],
-              ),
-            ),
-            SingleChildScrollView(
-                child: FirebaseAnimatedList(
-                    shrinkWrap: true,
-                    query: _terrainRef,
-                    itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                        Animation<double> animation, int index) {
-                      return new Card(
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) => Container(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Card(
+                        elevation: 5,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(15),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    snapshot.value['nom'],
+                                    terrains[index].nom,
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    snapshot.value['adresse'],
-                                  ),
-                                  Text(
-                                    snapshot.value['ville'],
-                                  ),
-                                  snapshot.value['etat'] == 1
+                                  Text(terrains[index].adresse),
+                                  Text(terrains[index].ville),
+                                  terrains[index].etat == 1
                                       ? Text("Mauvais")
                                       : Text("Bon"),
                                 ],
@@ -105,14 +110,14 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
                             ),
                             IconButton(
                               icon: Icon(Icons.delete),
-                              onPressed: () =>
-                                  _terrainRef.child(snapshot.key).remove(),
                             ),
                           ],
                         ),
-                      );
-                    })),
-          ],
-        ));
+                      ),
+                    ),
+                    childCount : terrains.length,
+                  ),
+                )
+              ]));
   }
 }
