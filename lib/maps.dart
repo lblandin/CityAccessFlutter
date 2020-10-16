@@ -291,11 +291,11 @@ class MapState extends State<Map> {
       child: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition:
-            CameraPosition(target: LatLng(terrains[1].lat, terrains[1].lng), zoom: 12),
+            CameraPosition(target: LatLng(48.086293, -1.6739764), zoom: 12),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        markers: Set<Marker>.of(desMarkers),
+        markers: Set<Marker>.of(desMarkers) ,
       ),
     );
   }
@@ -310,7 +310,7 @@ class MapState extends State<Map> {
     )));
   }
 }
-/*
+
 Marker gramercyMarker = Marker(
   markerId: MarkerId('gramercy'),
   position: LatLng(40.738380, -73.988426),
@@ -319,7 +319,7 @@ Marker gramercyMarker = Marker(
     BitmapDescriptor.hueViolet,
   ),
 );
-
+/*
 Marker bernardinMarker = Marker(
   markerId: MarkerId('bernardin'),
   position: LatLng(40.761421, -73.981667),
