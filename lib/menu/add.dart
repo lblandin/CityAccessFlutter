@@ -74,6 +74,10 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(0, 125, 0, 1),
+          toolbarHeight: 0,
+        ),
         body: Container(
           child: FlatButton(
             onPressed: () => sendField(),

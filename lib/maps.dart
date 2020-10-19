@@ -143,6 +143,7 @@ class MapState extends State<Map> {
                       terrains[index].lat,
                       terrains[index].lng,
                       terrains[index].nom,
+                      index
                     ),
                   ),
                 ],
@@ -154,7 +155,7 @@ class MapState extends State<Map> {
     );
   }
 
-  Widget _boxes(String _image, double lat, double long, String restaurantName) {
+  Widget _boxes(String _image, double lat, double long, String restaurantName, int index) {
     return GestureDetector(
       onTap: () {
         _gotoLocation(lat, long);
@@ -173,7 +174,7 @@ class MapState extends State<Map> {
                     width: 180,
                     height: 200,
                     child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(24.0),
+                      borderRadius:  BorderRadius.circular(24.0),
                       child: Image(
                         fit: BoxFit.fill,
                         image: NetworkImage(_image),
@@ -183,7 +184,7 @@ class MapState extends State<Map> {
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: myDetailsContainer1(restaurantName),
+                      child: myDetailsContainer1(restaurantName, index),
                     ),
                   ),
                 ],
@@ -193,7 +194,7 @@ class MapState extends State<Map> {
     );
   }
 
-  Widget myDetailsContainer1(String restaurantName) {
+  Widget myDetailsContainer1(String restaurantName, int index) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -201,76 +202,19 @@ class MapState extends State<Map> {
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
               child: Text(
-            restaurantName,
+            terrains[index].nom,
             style: TextStyle(
                 color: Color(0xff6200ee),
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold),
           )),
         ),
-        SizedBox(height: 5.0),
-        Container(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Container(
-                child: Text(
-              "4.1",
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 18.0,
-              ),
-            )),
-            Container(
-              child: Icon(
-                FontAwesomeIcons.solidStar,
-                color: Colors.amber,
-                size: 15.0,
-              ),
-            ),
-            Container(
-              child: Icon(
-                FontAwesomeIcons.solidStar,
-                color: Colors.amber,
-                size: 15.0,
-              ),
-            ),
-            Container(
-              child: Icon(
-                FontAwesomeIcons.solidStar,
-                color: Colors.amber,
-                size: 15.0,
-              ),
-            ),
-            Container(
-              child: Icon(
-                FontAwesomeIcons.solidStar,
-                color: Colors.amber,
-                size: 15.0,
-              ),
-            ),
-            Container(
-              child: Icon(
-                FontAwesomeIcons.solidStarHalf,
-                color: Colors.amber,
-                size: 15.0,
-              ),
-            ),
-            Container(
-                child: Text(
-              "(946)",
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 18.0,
-              ),
-            )),
-          ],
-        )),
+
         SizedBox(height: 5.0),
         Container(
             child: Text(
-          "American \u00B7 \u0024\u0024 \u00B7 1.6 mi",
-          style: TextStyle(
+              "${terrains[index].cp} ${terrains[index].ville}",
+              style: TextStyle(
             color: Colors.black54,
             fontSize: 18.0,
           ),
@@ -278,7 +222,7 @@ class MapState extends State<Map> {
         SizedBox(height: 5.0),
         Container(
             child: Text(
-          "Closed \u00B7 Opens 17:00 Thu",
+              terrains[index].adresse,
           style: TextStyle(
               color: Colors.black54,
               fontSize: 18.0,

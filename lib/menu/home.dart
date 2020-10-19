@@ -127,6 +127,10 @@ class _HomePageState extends State<HomePage> {
     return new MaterialApp(
         title: "",
         home: new Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color.fromRGBO(0, 125, 0, 1),
+              toolbarHeight: 0,
+            ),
             body: new ListView(
               children: <Widget>[
                 //You can add more widget bellow
