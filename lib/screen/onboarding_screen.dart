@@ -1,4 +1,5 @@
 import 'package:CityAccess/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -24,30 +25,107 @@ class MyApp extends StatelessWidget {
 }
 
 class OnboardingScreen extends StatelessWidget {
-  final pageDecoration = PageDecoration(
-    titleTextStyle:
-    PageDecoration().titleTextStyle.copyWith(color: Colors.black),
-    bodyTextStyle: PageDecoration().bodyTextStyle.copyWith(color: Colors.black),
-    contentPadding: const EdgeInsets.all(10),
-  );
-
-  List<PageViewModel> getPages() {
+  List<PageViewModel> getPages(BuildContext context) {
     return [
       PageViewModel(
-          image: Image.asset("assets/illustration.png"),
-          title: "Un système de recherche élaboré",
-          body: "Plusieurs moyens de recherches sont mis à votre disposition.",
-          decoration: pageDecoration),
+        titleWidget: Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            "Un système de recherche élaboré",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        bodyWidget: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "Plusieurs moyens de recherches sont mis à votre disposition.",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+        decoration: PageDecoration(
+          boxDecoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/tuto1.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
       PageViewModel(
-          image: Image.asset("assets/illustration.png"),
-          title: "Trouvez le terrain idéal",
-          body: "Trouvez facilement un terrain de sport proche de chez vous.",
-          decoration: pageDecoration),
+        titleWidget: Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            "Trouvez le terrain idéal",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        bodyWidget: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "Trouvez facilement un terrain de port proche de chez vous.",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+        decoration: PageDecoration(
+          boxDecoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/tuto2.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
       PageViewModel(
-          image: Image.asset("assets/illustration.png"),
-          title: "Jouer avec n'importe qui",
-          body: "C'est le moment de faire des rencontres et de découvrir d'autres sports.",
-          decoration: pageDecoration),
+        titleWidget: Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            "Jouez avec n'importe qui",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        bodyWidget: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "C'est le moment de faire des rencontres et de découvrir d'autres sports.",
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+        decoration: PageDecoration(
+          boxDecoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/tuto3.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
     ];
   }
 
@@ -55,16 +133,23 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
-        pages: getPages(),
+        globalBackgroundColor: Colors.transparent,
+        pages: getPages(context),
+        skipFlex: 0,
+        nextFlex: 0,
+        dotsDecorator: DotsDecorator(
+          activeColor: Colors.white,
+          activeSize: Size.square(15.0),
+          size: Size.square(10.0),
+          color: Colors.black87,
+        ),
         done: Text(
           "Done",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         onDone: () {
-          Navigator.push(context, new MaterialPageRoute(
-              builder: (context) => MyHomePage()
-          ));
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => MyHomePage()));
         },
       ),
     );
