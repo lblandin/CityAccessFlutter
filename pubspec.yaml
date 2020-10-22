@@ -37,7 +37,7 @@ dependencies:
 dev_dependencies:
   google_maps_flutter: ^0.5.11
   introduction_screen: ^1.0.7
-  flutter_launcher_icons: "^0.8.0"
+  flutter_launcher_icons: ^0.8.0
   flutter_test:
     sdk: flutter
 
