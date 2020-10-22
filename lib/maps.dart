@@ -175,7 +175,7 @@ class MapState extends State<Map> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: _boxes(
-                        "https://lh5.googleusercontent.com/p/AF1QipO3VPL9m-b355xWeg4MXmOQTauFAEkavSluTtJU=w225-h160-k-no",
+                        "assets/stade.jpg",
                         terrains[index].lat,
                         terrains[index].lng,
                         terrains[index].nom,
@@ -207,13 +207,13 @@ class MapState extends State<Map> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    width: 180,
-                    height: 200,
+                    width: 270,
+                    height: 190,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: BorderRadius.only(topLeft:  Radius.circular(24.0), bottomLeft: Radius.circular(24.0)),
                       child: Image(
                         fit: BoxFit.fill,
-                        image: NetworkImage(_image),
+                        image: AssetImage(_image),
                       ),
                     ),
                   ),
@@ -240,7 +240,7 @@ class MapState extends State<Map> {
               child: Text(
             terrains[index].nom,
             style: TextStyle(
-                color: Color(0xff6200ee),
+                color: Color.fromRGBO(50, 75, 175, 1),
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold),
           )),

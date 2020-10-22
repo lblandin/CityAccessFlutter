@@ -58,7 +58,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.4,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
+                  //borderRadius: BorderRadius.circular(30.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
@@ -70,7 +70,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                 child: Hero(
                     tag: "assets/stade.jpg",
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
+                      //borderRadius: BorderRadius.circular(30.0),
                       child: ColorFiltered(
                         colorFilter:
                             ColorFilter.mode(Colors.black38, BlendMode.darken),
