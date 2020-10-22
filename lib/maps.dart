@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:CityAccess/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,11 +38,9 @@ class MapState extends State<Map> {
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
-
-
       }
 
-      for(int i=0; i<terrains.length; i++){
+      for (int i = 0; i < terrains.length; i++) {
         Marker marker = new Marker(
           markerId: MarkerId('Marker ${terrains[i].id}.'),
           position: LatLng(terrains[i].lat, terrains[i].lng),
@@ -56,14 +55,10 @@ class MapState extends State<Map> {
       setState(() {
         print('lenght terrains: ${terrains.length}');
         print('lenght marker : ${desMarkers.length}');
-
       });
     });
 
-
-
     super.initState();
-
   }
 
   double zoomVal = 5.0;
@@ -78,8 +73,45 @@ class MapState extends State<Map> {
       body: Stack(
         children: <Widget>[
           _buildGoogleMap(context),
-          _zoomminusfunction(),
-          _zoomplusfunction(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                child: GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(50, 75, 175, 1),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black38,
+                          offset: Offset(1.0, 2.0),
+                          blurRadius: 3.0,
+                        ),
+                      ],
+                    ),
+                    child:
+                        Icon(Icons.arrow_back, size: 22, color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => MyApp()));
+                  },
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    _zoomminusfunction(),
+                    _zoomplusfunction(),
+                  ],
+                ),
+              )
+            ],
+          ),
           _buildContainer(),
         ],
       ),
@@ -90,7 +122,11 @@ class MapState extends State<Map> {
     return Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-          icon: Icon(FontAwesomeIcons.searchMinus, color: Color(0xff6200ee)),
+          icon: Icon(
+            FontAwesomeIcons.searchMinus,
+            color: Color.fromRGBO(50, 75, 175, 1),
+            size: 26 ,
+          ),
           onPressed: () {
             zoomVal--;
             _minus(zoomVal);
@@ -102,7 +138,7 @@ class MapState extends State<Map> {
     return Align(
       alignment: Alignment.topRight,
       child: IconButton(
-          icon: Icon(FontAwesomeIcons.searchPlus, color: Color(0xff6200ee)),
+          icon: Icon(FontAwesomeIcons.searchPlus,size: 26 , color: Color.fromRGBO(50, 75, 175, 1)),
           onPressed: () {
             zoomVal++;
             _plus(zoomVal);
@@ -139,12 +175,11 @@ class MapState extends State<Map> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: _boxes(
-                      "https://lh5.googleusercontent.com/p/AF1QipO3VPL9m-b355xWeg4MXmOQTauFAEkavSluTtJU=w225-h160-k-no",
-                      terrains[index].lat,
-                      terrains[index].lng,
-                      terrains[index].nom,
-                      index
-                    ),
+                        "https://lh5.googleusercontent.com/p/AF1QipO3VPL9m-b355xWeg4MXmOQTauFAEkavSluTtJU=w225-h160-k-no",
+                        terrains[index].lat,
+                        terrains[index].lng,
+                        terrains[index].nom,
+                        index),
                   ),
                 ],
               ),
@@ -155,7 +190,8 @@ class MapState extends State<Map> {
     );
   }
 
-  Widget _boxes(String _image, double lat, double long, String restaurantName, int index) {
+  Widget _boxes(String _image, double lat, double long, String restaurantName,
+      int index) {
     return GestureDetector(
       onTap: () {
         _gotoLocation(lat, long);
@@ -174,7 +210,7 @@ class MapState extends State<Map> {
                     width: 180,
                     height: 200,
                     child: ClipRRect(
-                      borderRadius:  BorderRadius.circular(24.0),
+                      borderRadius: BorderRadius.circular(24.0),
                       child: Image(
                         fit: BoxFit.fill,
                         image: NetworkImage(_image),
@@ -209,12 +245,11 @@ class MapState extends State<Map> {
                 fontWeight: FontWeight.bold),
           )),
         ),
-
         SizedBox(height: 5.0),
         Container(
             child: Text(
-              "${terrains[index].cp} ${terrains[index].ville}",
-              style: TextStyle(
+          "${terrains[index].cp} ${terrains[index].ville}",
+          style: TextStyle(
             color: Colors.black54,
             fontSize: 18.0,
           ),
@@ -222,7 +257,7 @@ class MapState extends State<Map> {
         SizedBox(height: 5.0),
         Container(
             child: Text(
-              terrains[index].adresse,
+          terrains[index].adresse,
           style: TextStyle(
               color: Colors.black54,
               fontSize: 18.0,
@@ -243,7 +278,7 @@ class MapState extends State<Map> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        markers: Set<Marker>.of(desMarkers) ,
+        markers: Set<Marker>.of(desMarkers),
       ),
     );
   }
@@ -258,4 +293,3 @@ class MapState extends State<Map> {
     )));
   }
 }
-

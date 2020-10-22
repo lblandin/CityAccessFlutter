@@ -40,6 +40,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 2;
 
+  final _controller = PageController();
+
   final HomePage homePage = new HomePage();
   final ListTerrainPage listTerrainPage = new ListTerrainPage();
   final ListActuPage listActuPage = new ListActuPage();
@@ -86,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
+
         color: Colors.green,
         backgroundColor: Colors.white,
         height: 58,

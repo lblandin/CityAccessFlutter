@@ -1,12 +1,18 @@
+import 'dart:ui';
+
 import 'package:CityAccess/maps.dart';
+import 'package:CityAccess/model/news.dart';
 import 'package:CityAccess/model/terrain.dart';
 import 'package:CityAccess/rules/basketball.dart';
 import 'package:CityAccess/rules/football.dart';
 import 'package:CityAccess/rules/handball.dart';
 import 'package:CityAccess/rules/volleyball.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,10 +21,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Terrain> terrains = [];
+  List<News> desNews = [];
+
 
   @override
   void initState() {
     DatabaseReference reference = FirebaseDatabase.instance.reference();
+
     reference.child('Terrain').once().then((DataSnapshot snapshot) {
       var keys = snapshot.value.keys;
       var data = snapshot.value;
@@ -37,14 +46,26 @@ class _HomePageState extends State<HomePage> {
         terrains.add(terrain);
       }
       setState(() {
-        print('lenght : ${terrains.length}');
+        print('lenght terrains: ${terrains.length}');
+      });
+    });
+
+    reference.child('News').once().then((DataSnapshot snapshot) {
+      var keys = snapshot.value.keys;
+      var data = snapshot.value;
+      desNews.clear();
+      for (var key in keys) {
+        News news = new News(data[key]["auteur"], data[key]["contenu"],
+            data[key]["date"], data[key]["id"], data[key]["titre"]);
+        desNews.add(news);
+      }
+      setState(() {
+        print('lenght actu: ${desNews.length}');
       });
     });
 
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +75,60 @@ class _HomePageState extends State<HomePage> {
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: new Text("Trouve ton terrain",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0)),
-                ),
-                //Need to add space below this Text ?
-                new Text(
-                  "Tout les terrains ici",
-                  style: new TextStyle(color: Colors.grey[850], fontSize: 16.0),
-                ),
-              ],
+            child: new Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      new Text("Trouve ton terrain",
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                      GestureDetector(
+                        child: new Text(
+                          "Tout les terrains ici",
+                          style: new TextStyle(
+                              color: Colors.grey[850], fontSize: 16.0),
+                        ),
+                        onTap: () {
+                              setState(() {
+
+                              });
+                          },
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(50, 75, 175, 1),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Colors.black38,
+                            offset: Offset(1.0, 2.0),
+                            blurRadius: 3.0,
+                          ),
+                        ],
+                      ),
+                      child: Icon(Icons.location_on,
+                          size: 22, color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (context) => Map()));
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
+
     Widget buildButton(IconData icon, String buttonTitle) {
       final Color tintColor = Colors.blue;
       return new Column(
@@ -94,91 +149,298 @@ class _HomePageState extends State<HomePage> {
     }
 
     Widget TerrainList(BuildContext context) {
-      return Container(
-        height: MediaQuery.of(context).size.height * 0.20,
-        width: MediaQuery.of(context).size.width,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          itemBuilder: (context, index){
-            return Container(
-              margin: EdgeInsets.all(5),
-              height: MediaQuery.of(context).size.height * 0.10,
-              width: MediaQuery.of(context).size.width * 0.4,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-
-                boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black54,
-                      offset: Offset(1.0, 3.0),
-                      blurRadius: 6.0,
+      return terrains.length <= 0
+          ? Container(
+              height: MediaQuery.of(context).size.height * 0.20,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.4,
+                  vertical: MediaQuery.of(context).size.height * 0.055),
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.60,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black54,
+                          offset: Offset(1.0, 3.0),
+                          blurRadius: 6.0,
+                        ),
+                      ],
                     ),
-                  ],
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: new DecorationImage(
+                          fit: BoxFit.cover,
+                          colorFilter: new ColorFilter.mode(
+                              Colors.black.withOpacity(0.3), BlendMode.darken),
+                          image: new AssetImage('assets/stade.jpg'),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            terrains[index].nom,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                terrains[index].ville,
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                              Text(
+                                terrains[index].adresse +
+                                    " " +
+                                    terrains[index].cp.toString(),
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             );
-          },
-        ),
-      );
     }
 
-    Widget ButtonsMapSection = new Container(
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          //build in a separated function
-          IconButton(
-              icon: Icon(Icons.map),
-              onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => Map()));
-              })
-        ],
-      ),
-    );
+    Widget ActuList(BuildContext context) {
+      return desNews.length <= 0
+          ? Container(
+              height: MediaQuery.of(context).size.height * 0.20,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.4,
+                  vertical: MediaQuery.of(context).size.height * 0.055),
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: desNews.length >= 5 ? 5 : desNews.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.60,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black54,
+                          offset: Offset(1.0, 3.0),
+                          blurRadius: 6.0,
+                        ),
+                      ],
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: new DecorationImage(
+                          fit: BoxFit.cover,
+                          colorFilter: new ColorFilter.mode(
+                              Colors.black.withOpacity(0.3), BlendMode.darken),
+                          image: new AssetImage('assets/news.jpg'),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                desNews[index].titre,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                desNews[index].date.substring(8, 10) +
+                                    "/" +
+                                    desNews[index].date.substring(5, 7) +
+                                    "/" +
+                                    desNews[index].date.substring(0, 4),
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            desNews[index].auteur,
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+    }
 
     Widget fourButtonsSection = new Container(
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          //build in a separated function
-          IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => HandballPage()));
-              }),
-          IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => FootballPage()));
-              }),
-          IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => BasketballPage()));
-              }),
-          IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => VolleyballPage()));
-              }),
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                child: Image(
+                  image: AssetImage('assets/rules/foot_regles.png'),
+                  width: 60,
+                  height: 60,
+                  color: Colors.black45,
+                ),
+              ),
+              Container(
+                child: GestureDetector(
+                  child: Image(
+                    image: AssetImage('assets/rules/foot_regles.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => FootballPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                child: Image(
+                  image: AssetImage('assets/rules/basket_regles.png'),
+                  width: 60,
+                  height: 60,
+                  color: Colors.black45,
+                ),
+              ),
+              Container(
+                child: GestureDetector(
+                  child: Image(
+                    image: AssetImage('assets/rules/basket_regles.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => BasketballPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                child: Image(
+                  image: AssetImage('assets/rules/handball_regles.png'),
+                  width: 60,
+                  height: 60,
+                  color: Colors.black45,
+                ),
+              ),
+              Container(
+                child: GestureDetector(
+                  child: Image(
+                    image: AssetImage('assets/rules/handball_regles.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => HandballPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                child: Image(
+                  image: AssetImage('assets/rules/volley_regles.png'),
+                  width: 60,
+                  height: 60,
+                  color: Colors.black45,
+                ),
+              ),
+              Container(
+                child: GestureDetector(
+                  child: Image(
+                    image: AssetImage('assets/rules/volley_regles.png'),
+                    width: 60,
+                    height: 60,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => VolleyballPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );
     final bottomTextSection = new Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(15.0),
       //How to show long text ?
       child: new Text(''' Toutes les actualités ici ''',
           style: new TextStyle(color: Colors.grey[850], fontSize: 16.0)),
@@ -196,9 +458,9 @@ class _HomePageState extends State<HomePage> {
             //You can add more widget bellow
             titleSection,
             TerrainList(context),
-            ButtonsMapSection,
             fourButtonsSection,
-            bottomTextSection
+            bottomTextSection,
+            ActuList(context)
           ],
         ),
       ),
