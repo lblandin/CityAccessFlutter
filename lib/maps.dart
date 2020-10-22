@@ -202,7 +202,7 @@ class MapState extends State<Map> {
               color: Colors.white,
               elevation: 14.0,
               borderRadius: BorderRadius.circular(24.0),
-              shadowColor: Color(0x802196F3),
+              shadowColor: Colors.black87,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

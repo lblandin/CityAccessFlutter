@@ -1,4 +1,5 @@
 import 'package:CityAccess/Other/FadeAnimation.dart';
+import 'package:CityAccess/menu/detailTerrain.dart';
 import 'package:CityAccess/model/terrain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -84,35 +85,41 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) => Container(
                       padding: EdgeInsets.only(left: 10, right: 10),
-                      child: Card(
-                        elevation: 5,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    terrains[index].nom,
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(terrains[index].adresse),
-                                  Text(terrains[index].ville),
-                                  terrains[index].etat == 1
-                                      ? Text("Mauvais")
-                                      : Text("Bon"),
-                                ],
+                      child: GestureDetector(
+                        child: Card(
+                          elevation: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      terrains[index].nom,
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(terrains[index].adresse),
+                                    Text(terrains[index].ville),
+                                    terrains[index].etat == 1
+                                        ? Text("Mauvais")
+                                        : Text("Bon"),
+                                  ],
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                            ),
-                          ],
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                              ),
+                            ],
+                          ),
                         ),
+                        onTap: () {
+                          Navigator.push(context,
+                              new MaterialPageRoute(builder: (context) => DetailTerrainPage(id: index)));
+                        },
                       ),
                     ),
                     childCount : terrains.length,

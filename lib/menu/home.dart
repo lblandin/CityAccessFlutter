@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   List<News> desNews = [];
 
 
+
+
   @override
   void initState() {
     DatabaseReference reference = FirebaseDatabase.instance.reference();
@@ -93,7 +95,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         onTap: () {
                               setState(() {
-
+                                Navigator.push(context,
+                                    new MaterialPageRoute(builder: (context) => MyHomePage()));
                               });
                           },
                       ),
