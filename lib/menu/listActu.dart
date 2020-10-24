@@ -5,6 +5,8 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'detailActu.dart';
+
 class ListActuPage extends StatefulWidget{
   ListActuPage({this.app});
 
@@ -78,34 +80,40 @@ class _ListActuPageState extends State<ListActuPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) => Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: Card(
-                  elevation: 5,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                    child: GestureDetector(
+                      child: Card(
+                        elevation: 5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              desNews[index].titre,
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(desNews[index].date),
-                            Text(desNews[index].auteur),
+                            Container(
+                              padding: EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    desNews[index].titre,
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(desNews[index].date),
+                                  Text(desNews[index].auteur),
 
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                            ),
                           ],
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                      ),
-                    ],
-                  ),
+                    onTap: () {
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (context) => DetailActuPage(id: index)));
+                    },
                 ),
               ),
               childCount : desNews.length,

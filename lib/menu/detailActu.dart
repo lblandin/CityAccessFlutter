@@ -1,5 +1,5 @@
 import 'package:CityAccess/Other/FadeAnimation.dart';
-import 'package:CityAccess/menu/listTerrain.dart';
+import 'package:CityAccess/model/news.dart';
 import 'package:CityAccess/model/terrain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -7,41 +7,37 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DetailTerrainPage extends StatefulWidget {
-  DetailTerrainPage({this.app, this.id});
+class DetailActuPage extends StatefulWidget {
+  DetailActuPage({this.app, this.id});
 
   final FirebaseApp app;
   int id;
 
   @override
-  _DetailTerrainPage createState() => _DetailTerrainPage();
+  _DetailActuPage createState() => _DetailActuPage();
 }
 
-class _DetailTerrainPage extends State<DetailTerrainPage> {
-  List<Terrain> terrains = [];
+class _DetailActuPage extends State<DetailActuPage> {
+  List<News> desNews = [];
 
   @override
   void initState() {
     DatabaseReference reference = FirebaseDatabase.instance.reference();
-    reference.child('Terrain').once().then((DataSnapshot snapshot) {
+    reference.child('News').once().then((DataSnapshot snapshot) {
       var keys = snapshot.value.keys;
       var data = snapshot.value;
-      terrains.clear();
+      desNews.clear();
       for (var key in keys) {
-        Terrain terrain = new Terrain(
+        News news = new News(
+            data[key]["auteur"],
+            data[key]["contenu"],
+            data[key]["date"],
             data[key]["id"],
-            data[key]["nom"],
-            data[key]["description"],
-            data[key]["adresse"],
-            data[key]["cp"],
-            data[key]["ville"],
-            data[key]["etat"],
-            data[key]["latitude"],
-            data[key]["longitude"]);
-        terrains.add(terrain);
+            data[key]["titre"]);
+        desNews.add(news);
       }
       setState(() {
-        print('lenght : ${terrains.length}');
+        print('lenght : ${desNews.length}');
       });
     });
 
@@ -68,14 +64,14 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                   ],
                 ),
                 child: Hero(
-                    tag: "assets/stade.jpg",
+                    tag: "assets/bg_news.jpg",
                     child: ClipRRect(
                       //borderRadius: BorderRadius.circular(30.0),
                       child: ColorFiltered(
                         colorFilter:
-                            ColorFilter.mode(Colors.black38, BlendMode.darken),
+                        ColorFilter.mode(Colors.black38, BlendMode.darken),
                         child: Image(
-                          image: AssetImage("assets/stade.jpg"),
+                          image: AssetImage("assets/bg_news.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -118,7 +114,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      terrains[widget.id].nom,
+                      desNews[widget.id].titre,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 35.0,
@@ -128,14 +124,14 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(
-                          Icons.location_on,
-                          size: 15.0,
-                          color: Colors.white70,
-                        ),
+//                        Icon(
+//                          Icons.location_on,
+//                          size: 15.0,
+//                          color: Colors.white70,
+//                        ),
                         SizedBox(width: 5.0),
                         Text(
-                          terrains[widget.id].ville,
+                          desNews[widget.id].date,
                           style: TextStyle(
                             color: Colors.white70,
                             fontSize: 20.0,
@@ -146,15 +142,15 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                   ],
                 ),
               ),
-              Positioned(
-                right: 20.0,
-                bottom: 20.0,
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.white70,
-                  size: 25.0,
-                ),
-              ),
+//              Positioned(
+//                right: 20.0,
+//                bottom: 20.0,
+//                child: Icon(
+//                  Icons.location_on,
+//                  color: Colors.white70,
+//                  size: 25.0,
+//                ),
+//              ),
             ],
           ),
           Expanded(
@@ -171,27 +167,15 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                       children: [
                         Container(
                           child: Text(
-                            terrains[widget.id].adresse,
+                            desNews[widget.id].contenu,
                             style: TextStyle(fontSize: 24),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            terrains[widget.id].cp.toString() +
-                                " " +
-                                terrains[widget.id].ville,
-                            style: TextStyle(fontSize: 18),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  terrains[widget.id].etat == 1
-                      ? Text("État : Bon", style: TextStyle(fontSize: 18),)
-                      : Text("État : Mauvais", style: TextStyle(fontSize: 18),),
-                  SizedBox(height: 20),
                   Text(
-                    terrains[widget.id].desc,
+                    desNews[widget.id].auteur,
                     style: TextStyle(fontSize: 18),
                   ),
                 ],
