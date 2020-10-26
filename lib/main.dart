@@ -1,4 +1,5 @@
 
+import 'package:CityAccess/screen/onboarding_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +9,9 @@ import 'menu/listActu.dart';
 import 'menu/listTerrain.dart';
 import 'menu/profil.dart';
 
-//void main() {
-//  runApp(MyApp());
-//}
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'City Access Home Page'),
+      home: Start(),
     );
   }
 }

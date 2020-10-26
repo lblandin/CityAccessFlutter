@@ -1,16 +1,18 @@
 import 'package:CityAccess/main.dart';
+import 'package:CityAccess/widget/tuto.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
-void main() {
-  runApp(Start());
-}
+//void main() {
+// runApp(Start());
+//}
 
 class Start extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,186 +27,74 @@ class Start extends StatelessWidget {
   }
 }
 
-class _tuto extends StatefulWidget{
+class _tuto extends StatefulWidget {
   @override
   OnboardingScreen createState() => OnboardingScreen();
-
 }
 
 class OnboardingScreen extends State<_tuto> {
-  List<String> desBg = [
-    "assets/tuto1.jpg",
-    "assets/tuto2.jpg",
-    "assets/tuto3.jpg",
-  ];
-
   LiquidController liquidController;
 
-
-
   @override
-  initState(){
+  initState() {
     liquidController = new LiquidController();
     super.initState();
   }
 
-  final pages = [
-    Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Planet",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: Color(0xFFA1B6CC),
-                  ),
-                ),
-                Text(
-                  "Mercury",
-                  style: TextStyle(
-                      fontSize: 50.0,
-                      color: Color(0xFF3A342D),
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20.0),
-                Divider(color: Colors.black38),
-                Text(
-                  "The smallest and fastest planet,\nMercury is the "
-                      "closest planet to the Sun \nand whips around it "
-                      "every \n88 Earth days",
-                  style: TextStyle(
-                      color: Color(0xFFA1B6CC),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16.0),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    ),
-    Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Planet",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: Color(0xFFA1B6CC),
-                  ),
-                ),
-                Text(
-                  "Venus",
-                  style: TextStyle(
-                      fontSize: 50.0,
-                      color: Color(0xFFE8BB57),
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20.0),
-                Divider(color: Color(0xFFE8BB57)),
-                Text(
-                  "Spinning in the opposite direction \n"
-                      "to most planets, Venus is the  \n"
-                      "hottest planet, and one of the"
-                      "and one of the \n"
-                      "brightest objects in the sky",
-                  style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16.0),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    ),
-    Container(
-
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Planet",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: Color(0xFFA1B6CC),
-                  ),
-                ),
-                Text(
-                  "Earth",
-                  style: TextStyle(
-                      fontSize: 50.0,
-                      color: Color(0xFF888C76),
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20.0),
-                Divider(color: Colors.blueGrey),
-                Text(
-                  "The place we call home, \nEarth is the third rock\n"
-                      "from the sun and the only planet\n"
-                      "with known life on it",
-                  style: TextStyle(
-                      color: Color(0xFFD4D4D2),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16.0),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-
+    final pages = [
+      Tuto(
+          "assets/icon/football.png",
+          "Un système de recherche élaboré",
+          "Plusieurs moyens de recherche sont mis à votre disposition pour trouver le terrain idéal",
+          false,
+          context,
+          Color.fromRGBO(94, 255, 137, 1),
+          Color.fromRGBO(61, 219, 104, 1),
+          Color.fromRGBO(35, 186, 76, 1),
+          Color.fromRGBO(13, 145, 49, 1)),
+      Tuto(
+          "assets/icon/volleyball.png",
+          "Trouver le terrain idéal",
+          "Trouver facilement et rapidement un terrain de sport près de chez vous",
+          false,
+          context,
+          Color.fromRGBO(64, 220, 255, 1),
+          Color.fromRGBO(41, 193, 227, 1),
+          Color.fromRGBO(19, 160, 191, 1),
+          Color.fromRGBO(6, 124, 150, 1)),
+      Tuto(
+          "assets/icon/basketball.png",
+          "Jouer avec n'importe qui",
+          "C'est le moment de faire des rencontreset de découvrir d'autres sports",
+          true,
+          context,
+          Color.fromRGBO(255, 245, 61, 1),
+          Color.fromRGBO(245, 234, 44, 1),
+          Color.fromRGBO(230, 218, 28, 1),
+          Color.fromRGBO(217, 205, 11, 1))
+    ];
     return Scaffold(
-
-      body: Container(
-
-        child: LiquidSwipe(
-          liquidController: liquidController,
-          initialPage: 0,
-          pages: pages,
-          enableLoop: false,
-          fullTransitionValue: 600,
-          enableSlideIcon: true,
-          waveType: WaveType.circularReveal,
-
-        ),
-      ),
+      body: pages.length == 0
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              child: LiquidSwipe(
+                liquidController: liquidController,
+                pages: pages,
+                enableLoop: false,
+                fullTransitionValue: 600,
+                enableSlideIcon: true,
+                waveType: WaveType.circularReveal,
+                slideIconWidget: Icon(
+                  Icons.chevron_left,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+            ),
     );
   }
-
-
-
-
 }
 //  List<PageViewModel> getPages(BuildContext context) {
 //    return [
