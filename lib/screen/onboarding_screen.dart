@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
+//import 'package:liquid_swipe/liquid_swipe.dart';
 
 void main() {
   runApp(Start());
