@@ -2,6 +2,7 @@
 import 'package:CityAccess/screen/onboarding_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'menu/add.dart';
 import 'menu/home.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Start(),
+      home: MyHomePage(),
     );
   }
 }
@@ -39,6 +40,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  int checked = 0;
+
+  @override
+  void initState(){
+    getPref();
+    super.initState();
+  }
+
+  getPref() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+      setState(() {
+          checked = _prefs.getInt('check');
+      });
+  }
+
   int _pageIndex = 2;
 
   final _controller = PageController();
@@ -81,7 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return checked == 0 ? Start()
+    : Scaffold(
       body: Container(
         color: Colors.white,
         child: Center(

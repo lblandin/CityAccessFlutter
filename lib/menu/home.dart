@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold, fontSize: 18.0)),
                       GestureDetector(
                         child: new Text(
-                          "Tout les terrains ici",
+                          "Tous les terrains ici",
                           style: new TextStyle(
                               color: Colors.grey[850], fontSize: 16.0),
                         ),
@@ -446,13 +446,15 @@ class _HomePageState extends State<HomePage> {
     final bottomTextSection = new Container(
       padding: const EdgeInsets.all(15.0),
       //How to show long text ?
-      child: new Text(''' Toutes les actualités ici ''',
+      child: new Text("Toutes les actualités ici",
           style: new TextStyle(color: Colors.grey[850], fontSize: 16.0)),
     );
     //build function returns a "Widget"
     return new MaterialApp(
       title: "",
+      debugShowCheckedModeBanner: false,
       home: new Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(0, 125, 0, 1),
           toolbarHeight: 0,

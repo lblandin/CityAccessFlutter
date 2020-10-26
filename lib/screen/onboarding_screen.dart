@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //void main() {
 // runApp(Start());
@@ -34,6 +35,7 @@ class _tuto extends StatefulWidget {
 
 class OnboardingScreen extends State<_tuto> {
   LiquidController liquidController;
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   initState() {
