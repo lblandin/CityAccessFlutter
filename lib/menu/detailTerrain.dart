@@ -36,6 +36,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
             data[key]["cp"],
             data[key]["ville"],
             data[key]["etat"],
+            data[key]["img"],
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
@@ -57,6 +58,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
             children: <Widget>[
               Container(
                 height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   //borderRadius: BorderRadius.circular(30.0),
                   boxShadow: [
@@ -74,8 +76,13 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                       child: ColorFiltered(
                         colorFilter:
                             ColorFilter.mode(Colors.black38, BlendMode.darken),
-                        child: Image(
+                        child: terrains[widget.id].img == null ?
+                        Image(
                           image: AssetImage("assets/stade.jpg"),
+//                                : NetworkImage(terrains[widget.id].img),
+                          fit: BoxFit.cover,
+                        ) : Image(
+                          image: NetworkImage(terrains[widget.id].img),
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -35,6 +35,7 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
             data[key]["cp"],
             data[key]["ville"],
             data[key]["etat"],
+            data[key]["img"],
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
