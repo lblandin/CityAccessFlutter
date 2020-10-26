@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    child: Container(
+                    child: terrains.length == 0 ? Center(child: CircularProgressIndicator()) : Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

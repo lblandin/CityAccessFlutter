@@ -207,14 +207,14 @@ class MapState extends State<Map> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
+                  terrains.length == 0 ? Center(child: CircularProgressIndicator()) : Container(
                     width: 270,
                     height: 190,
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(topLeft:  Radius.circular(24.0), bottomLeft: Radius.circular(24.0)),
-                      child: Image(
+                      child: Image.network(
+                        _image,
                         fit: BoxFit.fill,
-                        image: AssetImage(_image),
                       ),
                     ),
                   ),

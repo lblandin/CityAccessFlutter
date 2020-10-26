@@ -52,7 +52,7 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: terrains.length == 0 ? Center(child: CircularProgressIndicator()) : Column(
         children: <Widget>[
           Stack(
             children: <Widget>[
@@ -69,24 +69,22 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                     ),
                   ],
                 ),
-                child: Hero(
-                    tag: "assets/stade.jpg",
-                    child: ClipRRect(
-                      //borderRadius: BorderRadius.circular(30.0),
-                      child: ColorFiltered(
-                        colorFilter:
-                            ColorFilter.mode(Colors.black38, BlendMode.darken),
-                        child: terrains[widget.id].img == null ?
-                        Image(
-                          image: AssetImage("assets/stade.jpg"),
-//                                : NetworkImage(terrains[widget.id].img),
-                          fit: BoxFit.cover,
-                        ) : Image(
-                          image: NetworkImage(terrains[widget.id].img),
-                          fit: BoxFit.cover,
+                child: terrains[widget.id].img == null
+                    ? Center(child: CircularProgressIndicator())
+                    : Hero(
+                        tag: "assets/stade.jpg",
+                        child: ClipRRect(
+                          //borderRadius: BorderRadius.circular(30.0),
+                          child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                Colors.black38, BlendMode.darken),
+                            child: Image.network(
+                              terrains[widget.id].img,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
-                    )),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
@@ -194,8 +192,14 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                     ),
                   ),
                   terrains[widget.id].etat == 1
-                      ? Text("État : Bon", style: TextStyle(fontSize: 18),)
-                      : Text("État : Mauvais", style: TextStyle(fontSize: 18),),
+                      ? Text(
+                          "État : Bon",
+                          style: TextStyle(fontSize: 18),
+                        )
+                      : Text(
+                          "État : Mauvais",
+                          style: TextStyle(fontSize: 18),
+                        ),
                   SizedBox(height: 20),
                   Text(
                     terrains[widget.id].desc,
