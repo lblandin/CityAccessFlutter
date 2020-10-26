@@ -9,7 +9,8 @@ class Terrain{
   int etat;
   double lat;
   double lng;
+  String img;
 
   Terrain(this.id, this.nom, this.desc, this.adresse, this.cp, this.ville,
-      this.etat, this.lat, this.lng);
+      this.etat, this.img, this.lat, this.lng);
 }

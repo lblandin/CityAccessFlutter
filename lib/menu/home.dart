@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
             data[key]["cp"],
             data[key]["ville"],
             data[key]["etat"],
+            data[key]["img"],
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
@@ -192,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.cover,
                           colorFilter: new ColorFilter.mode(
                               Colors.black.withOpacity(0.3), BlendMode.darken),
-                          image: new AssetImage('assets/stade.jpg'),
+                          image: NetworkImage(terrains[index].img),
                         ),
                       ),
                       child: Column(

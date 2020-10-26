@@ -35,6 +35,7 @@ class MapState extends State<Map> {
             data[key]["cp"],
             data[key]["ville"],
             data[key]["etat"],
+            data[key]["img"],
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
@@ -175,7 +176,7 @@ class MapState extends State<Map> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: _boxes(
-                        "assets/stade.jpg",
+                        terrains[index].img,
                         terrains[index].lat,
                         terrains[index].lng,
                         terrains[index].nom,

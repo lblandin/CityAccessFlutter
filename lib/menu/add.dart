@@ -22,6 +22,7 @@ class _AddPageState extends State<AddPage> {
   int _etat;
   double _longitude;
   double _latitude;
+  String img;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final DatabaseReference database = FirebaseDatabase.instance.reference().child("Terrain");
@@ -45,6 +46,7 @@ class _AddPageState extends State<AddPage> {
             data[key]["cp"],
             data[key]["ville"],
             data[key]["etat"],
+            data[key]["img"],
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
