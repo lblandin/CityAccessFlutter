@@ -131,7 +131,11 @@ class _DetailActuPage extends State<DetailActuPage> {
 //                        ),
                         SizedBox(width: 5.0),
                         Text(
-                          desNews[widget.id].date,
+                            desNews[widget.id].date.substring(8, 10) +
+                                "/" +
+                                desNews[widget.id].date.substring(5, 7) +
+                                "/" +
+                                desNews[widget.id].date.substring(0, 4),
                           style: TextStyle(
                             color: Colors.white70,
                             fontSize: 20.0,

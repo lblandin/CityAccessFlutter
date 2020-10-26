@@ -98,7 +98,11 @@ class _ListActuPageState extends State<ListActuPage> {
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(desNews[index].date),
+                                  Text(desNews[index].date.substring(8, 10) +
+                                      "/" +
+                                      desNews[index].date.substring(5, 7) +
+                                      "/" +
+                                      desNews[index].date.substring(0, 4)),
                                   Text(desNews[index].auteur),
 
                                 ],
