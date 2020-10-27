@@ -1,4 +1,5 @@
 
+import 'package:CityAccess/menu/mainMenu.dart';
 import 'package:CityAccess/screen/onboarding_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int checked = 0;
+  bool checked;
+
 
   @override
   void initState(){
@@ -52,82 +54,17 @@ class _MyHomePageState extends State<MyHomePage> {
   getPref() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
       setState(() {
-          checked = _prefs.getInt('check');
+          checked = _prefs.getBool('check') == null ? false : _prefs.getBool('check');
       });
   }
 
-  int _pageIndex = 2;
 
-  final _controller = PageController();
-
-  final HomePage homePage = new HomePage();
-  final ListTerrainPage listTerrainPage = new ListTerrainPage();
-  final ListActuPage listActuPage = new ListActuPage();
-  final ProfilPage profilPage = new ProfilPage();
-  final AddPage addPage = new AddPage();
-
-  Widget _showPage = new HomePage();
-
-  Widget _PageChooser(int page) {
-    switch (page) {
-      case 0:
-        return listTerrainPage;
-        break;
-      case 1:
-        return listActuPage;
-        break;
-      case 2:
-        return homePage;
-        break;
-      case 3:
-        return profilPage;
-        break;
-      case 4:
-        return addPage;
-        break;
-      default:
-        return new Container(
-          child: new Center(
-            child: new Text(
-              "No Page Found "
-            ),
-          ),
-        );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return checked == 0 ? Start()
-    : Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: _showPage,
-        ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-
-        color: Colors.green,
-        backgroundColor: Colors.white,
-        height: 58,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 500),
-        index: _pageIndex,
-        items: <Widget>[
-          Icon(Icons.dehaze, size: 25, color: Colors.white),
-          Icon(Icons.library_books, size: 25, color: Colors.white),
-          Icon(Icons.home, size: 25, color: Colors.white),
-          Icon(Icons.person, size: 25, color: Colors.white),
-          Icon(Icons.add, size: 25, color: Colors.white),
-        ],
-        onTap: (index) {
-          debugPrint("Currend index is $index");
-          setState(() {
-            _showPage = _PageChooser(index);
-          });
-        },
-      ),
-    );
+    return checked == false ? Start()
+    : MainMenu();
   }
 }
+
+

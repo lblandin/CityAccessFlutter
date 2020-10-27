@@ -1,4 +1,5 @@
 import 'package:CityAccess/main.dart';
+import 'package:CityAccess/menu/mainMenu.dart';
 import 'package:CityAccess/widget/tuto.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,9 @@ class _tuto extends StatefulWidget {
 
 class OnboardingScreen extends State<_tuto> {
   LiquidController liquidController;
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  bool _checked = false;
+
 
   @override
   initState() {
@@ -50,7 +53,6 @@ class OnboardingScreen extends State<_tuto> {
           "assets/icon/football.png",
           "Un système de recherche élaboré",
           "Plusieurs moyens de recherche sont mis à votre disposition pour trouver le terrain idéal",
-          false,
           context,
           Color.fromRGBO(94, 255, 137, 1),
           Color.fromRGBO(61, 219, 104, 1),
@@ -60,22 +62,119 @@ class OnboardingScreen extends State<_tuto> {
           "assets/icon/volleyball.png",
           "Trouver le terrain idéal",
           "Trouver facilement et rapidement un terrain de sport près de chez vous",
-          false,
           context,
           Color.fromRGBO(64, 220, 255, 1),
           Color.fromRGBO(41, 193, 227, 1),
           Color.fromRGBO(19, 160, 191, 1),
           Color.fromRGBO(6, 124, 150, 1)),
-      Tuto(
-          "assets/icon/basketball.png",
-          "Jouer avec n'importe qui",
-          "C'est le moment de faire des rencontreset de découvrir d'autres sports",
-          true,
-          context,
-          Color.fromRGBO(255, 245, 61, 1),
-          Color.fromRGBO(245, 234, 44, 1),
-          Color.fromRGBO(230, 218, 28, 1),
-          Color.fromRGBO(217, 205, 11, 1))
+
+      Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color.fromRGBO(255, 245, 61, 1),
+                      Color.fromRGBO(245, 234, 44, 1),
+                      Color.fromRGBO(230, 218, 28, 1),
+                      Color.fromRGBO(217, 205, 11, 1)])),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(30),
+                        child: Image(
+                          image: AssetImage("assets/icon/basketball.png"),
+                          width: MediaQuery.of(context).size.width * 0.3,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "Jouer avec n'importe qui",
+                          style: TextStyle(
+                              fontSize: 24.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        width: 30,
+                        height: 30,
+                        child: Divider(color: Colors.black, thickness: 1),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "C'est le moment de faire des rencontres et de découvrir d'autres sports",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.05,
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.55,
+                  child: CheckboxListTile(
+                    title: Text("Ne plus afficher"),
+                    activeColor: Colors.transparent,
+                    checkColor: Colors.white,
+                    value: _checked,
+
+                    onChanged: (bool value) {
+                      setState((){
+                          _checked = value;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width*0.35,
+                  alignment: Alignment.bottomCenter,
+                  child: GestureDetector(
+                    child: Text(
+                      "DONE",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () async {
+                      SharedPreferences _prefs =
+                      await SharedPreferences.getInstance();
+                      _prefs.setBool('check', _checked);
+
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MainMenu()));
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+        ],
+      )
+
     ];
     return Scaffold(
       body: pages.length == 0

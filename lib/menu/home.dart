@@ -48,9 +48,12 @@ class _HomePageState extends State<HomePage> {
             data[key]["longitude"]);
         terrains.add(terrain);
       }
-      setState(() {
-        print('lenght terrains: ${terrains.length}');
-      });
+      if(mounted){
+        setState(() {
+          print('lenght terrains: ${terrains.length}');
+        });
+      }
+
     });
 
     reference.child('News').once().then((DataSnapshot snapshot) {
@@ -62,9 +65,12 @@ class _HomePageState extends State<HomePage> {
             data[key]["date"], data[key]["id"], data[key]["titre"]);
         desNews.add(news);
       }
-      setState(() {
-        print('lenght actu: ${desNews.length}');
-      });
+      if(mounted){
+        setState(() {
+          print('lenght actu: ${desNews.length}');
+        });
+      }
+
     });
 
     super.initState();
