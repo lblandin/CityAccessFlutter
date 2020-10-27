@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BasketballPage extends StatefulWidget{
+class BasketballPage extends StatefulWidget {
   @override
   _BasketballPageState createState() => _BasketballPageState();
 }
@@ -11,7 +11,7 @@ class _BasketballPageState extends State<BasketballPage> {
   Widget build(BuildContext context) {
     //Now we need multiple widgets into a parent = "Container" widget
     Widget titleSection = new Container(
-      padding: const EdgeInsets.all(10.0),//Top, Right, Bottom, Left
+      padding: const EdgeInsets.all(10.0), //Top, Right, Bottom, Left
       child: new Row(
         children: <Widget>[
           new Expanded(
@@ -22,9 +22,7 @@ class _BasketballPageState extends State<BasketballPage> {
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: new Text("Règles de basketball",
                       style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0
-                      )),
+                          fontWeight: FontWeight.bold, fontSize: 18.0)),
                 ),
               ],
             ),
@@ -35,7 +33,8 @@ class _BasketballPageState extends State<BasketballPage> {
     final bottomTextSection = new Container(
       padding: const EdgeInsets.all(20.0),
       //How to show long text ?
-      child: new Text('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
+      child: new Text(
+          '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
       Nulla facilisi. Vestibulum aliquam auctor aliquet. Quisque egestas ullamcorper venenatis. Aliquam condimentum tortor 
       eget dolor tempus, ut scelerisque nibh tristique. Pellentesque metus erat, dapibus nec sapien sit amet, congue rutrum 
       mi. Etiam ligula sapien, cursus interdum semper sit amet, mollis eu mauris. Integer nec egestas mauris, id scelerisque 
@@ -43,36 +42,57 @@ class _BasketballPageState extends State<BasketballPage> {
           style: new TextStyle(
             color: Colors.grey[850],
             fontSize: 16.0,
-          )
-      ),
+          )),
     );
     final bottomSecondTextSection = new Container(
       padding: const EdgeInsets.all(20.0),
       //How to show long text ?
-      child: new Text('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
+      child: new Text(
+          '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
       Nulla facilisi. Vestibulum aliquam auctor aliquet. Quisque egestas ullamcorper venenatis. Aliquam condimentum tortor 
       eget dolor tempus, ut scelerisque nibh tristique. Pellentesque metus erat, dapibus nec sapien sit amet, congue rutrum 
       mi. Etiam ligula sapien, cursus interdum semper sit amet, mollis eu mauris. Integer nec egestas mauris, id scelerisque 
       libero. Ut nibh purus, accumsan id ultricies id, gravida nec turpis. Suspendisse et facilisis diam.''',
-          style: new TextStyle(
-              color: Colors.grey[850],
-              fontSize: 16.0
-          )
-      ),
+          style: new TextStyle(color: Colors.grey[850], fontSize: 16.0)),
     );
     //build function returns a "Widget"
     return new MaterialApp(
         title: "",
+        debugShowCheckedModeBanner: false,
         home: new Scaffold(
-            body: new ListView(
+          /*body: new ListView(
               children: <Widget>[
                 //You can add more widget bellow
                 titleSection,
                 bottomTextSection,
                 bottomSecondTextSection
               ],
-            )
-        )
-    );//Widget with "Material design"
+            )*/
+          body: Stack(
+            children: [
+              Container(),
+              Container(
+                height: 300.0,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          "assets/stade.jpg"),
+                        fit: BoxFit.cover)),
+              ),
+              Positioned(
+                top: 250,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                    color: Colors.red,
+                  ),
+                ),
+              )
+            ],
+          ),
+        )); //Widget with "Material design"
   }
 }

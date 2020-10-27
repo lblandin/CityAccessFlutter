@@ -8,7 +8,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'model/terrain.dart';
 
 class Map extends StatefulWidget {
-  Map(double lat, double lng);
+
+  double lat;
+
+  Map(this.lat, this.lng);
+
+  double lng;
 
   @override
   State<Map> createState() => MapState();
@@ -280,7 +285,7 @@ class MapState extends State<Map> {
       child: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition:
-            CameraPosition(target: LatLng(48.086293, -1.6739764), zoom: 12),
+            CameraPosition(target: LatLng(widget.lat, widget.lng), zoom: 12),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
