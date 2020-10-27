@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          new MaterialPageRoute(builder: (context) => Map()));
+                          new MaterialPageRoute(builder: (context) => Map(40.712776, -74.005974)));
                     },
                   )
                 ],

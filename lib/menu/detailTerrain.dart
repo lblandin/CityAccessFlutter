@@ -1,4 +1,5 @@
 import 'package:CityAccess/Other/FadeAnimation.dart';
+import 'package:CityAccess/maps.dart';
 import 'package:CityAccess/menu/listTerrain.dart';
 import 'package:CityAccess/model/terrain.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -154,10 +155,14 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
               Positioned(
                 right: 20.0,
                 bottom: 20.0,
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.white70,
-                  size: 25.0,
+                child:
+                IconButton(
+                  icon: Icon(Icons.location_on),
+                  iconSize: 25.0,
+                  color: Colors.white,
+                  onPressed: () => Navigator.push(context,
+                      new MaterialPageRoute(builder: (context) => Map(terrains[widget.id].lat, terrains[widget.id].lng)),
+                ),
                 ),
               ),
             ],

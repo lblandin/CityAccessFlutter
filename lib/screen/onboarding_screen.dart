@@ -8,9 +8,9 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//void main() {
-// runApp(Start());
-//}
+void main() {
+  runApp(Start());
+}
 
 class Start extends StatelessWidget {
   // This widget is the root of your application.

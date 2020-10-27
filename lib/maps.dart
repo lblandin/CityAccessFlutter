@@ -8,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'model/terrain.dart';
 
 class Map extends StatefulWidget {
+  Map(double lat, double lng);
+
   @override
   State<Map> createState() => MapState();
 }
@@ -43,6 +45,7 @@ class MapState extends State<Map> {
       for (int i = 0; i < terrains.length; i++) {
         Marker marker = new Marker(
           markerId: MarkerId('Marker ${terrains[i].id}.'),
+          //position: (terrains[i].lat == null ?  LatLng(40.00, 40.00) :  LatLng(terrains[i].lat, terrains[i].lng)),
           position: LatLng(terrains[i].lat, terrains[i].lng),
           infoWindow: InfoWindow(title: terrains[i].nom),
           icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -97,8 +100,7 @@ class MapState extends State<Map> {
                         Icon(Icons.arrow_back, size: 22, color: Colors.white),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        new MaterialPageRoute(builder: (context) => MyApp()));
+                    Navigator.pop(context);
                   },
                 ),
               ),
