@@ -5,7 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'model/terrain.dart';
 
 class Map extends StatefulWidget {
@@ -198,6 +197,8 @@ class MapState extends State<Map> {
         _gotoLocation(lat, long);
       },
       child: Container(
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.height * 0.2,
         child: new FittedBox(
           child: Material(
               color: Colors.white,
@@ -208,17 +209,20 @@ class MapState extends State<Map> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   terrains.length == 0 ? Center(child: CircularProgressIndicator()) : Container(
-                    width: 270,
-                    height: 190,
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(topLeft:  Radius.circular(24.0), bottomLeft: Radius.circular(24.0)),
                       child: Image.network(
                         _image,
-                        fit: BoxFit.fill,
+
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: myDetailsContainer1(restaurantName, index),
@@ -255,7 +259,6 @@ class MapState extends State<Map> {
             fontSize: 18.0,
           ),
         )),
-        SizedBox(height: 5.0),
         Container(
             child: Text(
           terrains[index].adresse,
@@ -280,6 +283,8 @@ class MapState extends State<Map> {
           _controller.complete(controller);
         },
         markers: Set<Marker>.of(desMarkers),
+
+
       ),
     );
   }
@@ -293,4 +298,7 @@ class MapState extends State<Map> {
       bearing: 45.0,
     )));
   }
+
+
+
 }
