@@ -4,6 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'add.dart';
+import 'favorite.dart';
 import 'home.dart';
 import 'listActu.dart';
 import 'listTerrain.dart';
@@ -40,6 +41,7 @@ class MainState extends State<_MainMenu> {
   final ListTerrainPage listTerrainPage = new ListTerrainPage();
   final ListActuPage listActuPage = new ListActuPage();
   final ProfilPage profilPage = new ProfilPage();
+  final FavoritePage favoritePage = new FavoritePage();
   final AddPage addPage = new AddPage();
 
   Widget _showPage = new HomePage();
@@ -59,6 +61,9 @@ class MainState extends State<_MainMenu> {
         return profilPage;
         break;
       case 4:
+        return favoritePage;
+        break;
+      case 5:
         return addPage;
         break;
       default:
@@ -94,6 +99,7 @@ class MainState extends State<_MainMenu> {
           Icon(Icons.library_books, size: 25, color: Colors.white),
           Icon(Icons.home, size: 25, color: Colors.white),
           Icon(Icons.person, size: 25, color: Colors.white),
+          Icon(Icons.favorite, size: 25, color: Colors.white),
           Icon(Icons.add, size: 25, color: Colors.white),
         ],
         onTap: (index) {

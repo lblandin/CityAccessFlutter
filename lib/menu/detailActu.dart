@@ -97,6 +97,12 @@ class _DetailActuPage extends State<DetailActuPage> {
                           onPressed: () => Navigator.pop(context),
                         ),
                         IconButton(
+                          icon: Icon(Icons.favorite),
+                          iconSize: 25.0,
+                          color: Colors.white,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        IconButton(
                           icon: Icon(Icons.arrow_back),
                           iconSize: 25.0,
                           color: Colors.white,
@@ -170,17 +176,33 @@ class _DetailActuPage extends State<DetailActuPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          child: Text(
-                            desNews[widget.id].contenu,
-                            style: TextStyle(fontSize: 24),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                "Contenu : ",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                              ),
+                              Text(
+                                desNews[widget.id].contenu,
+                                style: TextStyle(fontSize: 24),
+                              ),
+                            ]
                           ),
-                        ),
+                          ),
                       ],
                     ),
                   ),
-                  Text(
-                    desNews[widget.id].auteur,
-                    style: TextStyle(fontSize: 18),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                          "Auteur : ",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                      ),
+                      Text(
+                        desNews[widget.id].auteur,
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
                   ),
                 ],
               ),

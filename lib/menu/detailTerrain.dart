@@ -107,6 +107,12 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                           onPressed: () => Navigator.pop(context),
                         ),
                         IconButton(
+                          icon: Icon(Icons.favorite),
+                          iconSize: 25.0,
+                          color: Colors.white,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        IconButton(
                           icon: Icon(Icons.arrow_back),
                           iconSize: 25.0,
                           color: Colors.white,
@@ -160,7 +166,10 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                   icon: Icon(Icons.location_on),
                   iconSize: 25.0,
                   color: Colors.white,
-                  onPressed: () => Navigator.push(context,
+                  onPressed: () =>
+//                      Navigator.push(context,
+//                        new MaterialPageRoute(builder: (context) => Map(48.1225949, -1.5138047)),
+                      Navigator.push(context,
                       new MaterialPageRoute(builder: (context) => Map(terrains[widget.id].lat, terrains[widget.id].lng)),
                 ),
                 ),
@@ -196,21 +205,37 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                       ],
                     ),
                   ),
-                  terrains[widget.id].etat == 1
-                      ? Text(
-                          "État : Bon",
-                          style: TextStyle(fontSize: 18),
-                        )
-                      : Text(
-                          "État : Mauvais",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                  SizedBox(height: 20),
-                  Text(
-                    terrains[widget.id].desc,
-                    style: TextStyle(fontSize: 18),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "Etat : ",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                      ),
+                      terrains[widget.id].etat == 1
+                          ? Text(
+                        "Bon",
+                        style: TextStyle(fontSize: 18),
+                      )
+                          : Text(
+                        "Mauvais",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
                   ),
-                ],
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                          "Description : ",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                      ),
+                      Text(
+                        terrains[widget.id].desc,
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                ]
               ),
             ),
           ),
