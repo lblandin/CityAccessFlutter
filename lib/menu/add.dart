@@ -27,7 +27,7 @@ class _AddPageState extends State<AddPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final DatabaseReference database =
-      FirebaseDatabase.instance.reference().child("Terrain");
+  FirebaseDatabase.instance.reference().child("Terrain");
 
   File _image;
 
@@ -35,33 +35,6 @@ class _AddPageState extends State<AddPage> {
 
   List<Terrain> terrains = [];
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = image;
-      print('Image Path $_image');
-    });
-  }
-
-  Future uploadPic(BuildContext context) async {
-    String fileName = _image.path;
-    StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(fileName);
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-    imageUrl = await taskSnapshot.ref.getDownloadURL() ;
-
-
-    setState(() {
-
-      print("Profile Picture uploaded");
-      print("\n\n\n\n${imageUrl}\n\n\n");
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Profile Picture Uploaded')));
-    });
-  }
 
   @override
   initState() {
@@ -98,6 +71,58 @@ class _AddPageState extends State<AddPage> {
   double lng = Random.secure().nextDouble() * (-0.5 - (-1.5)) + 1.5;
 
   int index;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+      print('Image Path $_image');
+    });
+  }
+
+  Future uploadPic(BuildContext context) async {
+    String fileName = _image.path;
+    StorageReference firebaseStorageRef =
+    FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+
+    _formKey.currentState.save();
+
+    print(_nom);
+    print(_ville);
+    print(_adresse);
+    print(_cp);
+    print(_description);
+    print(_etat);
+    print(_longitude);
+    print(_latitude);
+    print(imageUrl);
+
+    //Send to Database
+    setState(() {
+      index = terrains.length + 1;
+    });
+
+    database.push().set({
+      'id': index,
+      'nom': _nom,
+      'description': _description,
+      'adresse': _adresse,
+      'cp': _cp,
+      'ville': _ville,
+      'etat': _etat,
+      'latitude': _latitude,
+      'longitude': _longitude,
+      'img': await taskSnapshot.ref.getDownloadURL(),
+
+    });
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text('Profile Picture Uploaded')));
+
+  }
 
   Widget _buildNom() {
     return TextFormField(
@@ -269,36 +294,9 @@ class _AddPageState extends State<AddPage> {
                   if (!_formKey.currentState.validate()) {
                     return;
                   }
-
                   uploadPic(context);
 
-                  _formKey.currentState.save();
 
-                  print(_nom);
-                  print(_ville);
-                  print(_adresse);
-                  print(_cp);
-                  print(_description);
-                  print(_etat);
-                  print(_longitude);
-                  print(_latitude);
-
-                  //Send to Database
-                  setState(() {
-                    index = terrains.length + 1;
-                  });
-                  database.push().set({
-                    'id': index,
-                    'nom': _nom,
-                    'description': _description,
-                    'adresse': _adresse,
-                    'cp': _cp,
-                    'ville': _ville,
-                    'etat': _etat,
-                    'latitude': _latitude,
-                    'longitude': _longitude,
-                    'img' : imageUrl,
-                  });
                 },
               )
             ],
