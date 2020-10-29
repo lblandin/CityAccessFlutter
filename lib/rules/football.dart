@@ -59,8 +59,6 @@ class _FootballPageState extends State<FootballPage> {
         home: new Scaffold(
             body: RulesWidget(
                 context,
-                "assets/bg_news.jpg",
-                "Règles de Football",
-                footRules))); //Widget with "Material design"
+                "assets/stade.jpg", "Règles de Football", footRules))); //Widget with "Material design"
   }
 }

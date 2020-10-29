@@ -326,14 +326,21 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
-                child: Image(
-                  image: AssetImage('assets/rules/foot_regles.png'),
-                  width: 60,
-                  height: 60,
-                  color: Colors.black45,
-                ),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                    child: Image(
+                      image: AssetImage('assets/rules/foot_regles.png'),
+                      width: 60,
+                      height: 60,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  Text(
+                    "Football"
+                  ),
+                ],
               ),
               Container(
                 child: GestureDetector(
@@ -356,44 +363,58 @@ class _HomePageState extends State<HomePage> {
           ),
           Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
-                child: Image(
-                  image: AssetImage('assets/rules/basket_regles.png'),
-                  width: 60,
-                  height: 60,
-                  color: Colors.black45,
-                ),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                    child: Image(
+                      image: AssetImage('assets/rules/basket_regles.png'),
+                      width: 60,
+                      height: 60,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  Text(
+                      "Basketball"
+                  ),
+                ],
               ),
               Container(
                 child: GestureDetector(
                   child: Image(
                     image: AssetImage('assets/rules/basket_regles.png'),
-                    width: 60,
-                    height: 60,
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (context) => BasketballPage(),
-                      ),
-                    );
-                  },
+                      width: 60,
+                      height: 60,
+                    ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => BasketballPage(),
+                          ),
+                        );
+                      },
+                    ),
                 ),
-              ),
             ],
           ),
           Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
-                child: Image(
-                  image: AssetImage('assets/rules/handball_regles.png'),
-                  width: 60,
-                  height: 60,
-                  color: Colors.black45,
-                ),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                    child: Image(
+                      image: AssetImage('assets/rules/handball_regles.png'),
+                      width: 60,
+                      height: 60,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  Text(
+                      "Handball"
+                  ),
+                ],
               ),
               Container(
                 child: GestureDetector(
@@ -416,14 +437,21 @@ class _HomePageState extends State<HomePage> {
           ),
           Stack(
             children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
-                child: Image(
-                  image: AssetImage('assets/rules/volley_regles.png'),
-                  width: 60,
-                  height: 60,
-                  color: Colors.black45,
-                ),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0, left: 2, top: 3),
+                    child: Image(
+                      image: AssetImage('assets/rules/volley_regles.png'),
+                      width: 60,
+                      height: 60,
+                      color: Colors.black45,
+                    ),
+                  ),
+                  Text(
+                      "Volleyball"
+                  ),
+                ],
               ),
               Container(
                 child: GestureDetector(

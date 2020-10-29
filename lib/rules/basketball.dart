@@ -63,7 +63,7 @@ class _BasketballPageState extends State<BasketballPage> {
                 bottomSecondTextSection
               ],
             )*/
-          body: RulesWidget(context, "assets/bg_news.jpg", "Règles de Basketball", basketRules)
+          body: RulesWidget(context, "assets/basketball_court.jpg", "Règles de Basketball", basketRules)
         )); //Widget with "Material design"
   }
   
