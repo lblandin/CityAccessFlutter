@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: terrains.length < 5 ? terrains.length : 5,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.all(10),
