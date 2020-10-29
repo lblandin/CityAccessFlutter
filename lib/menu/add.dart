@@ -1,19 +1,20 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:CityAccess/model/terrain.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:image_picker/image_picker.dart';
 
-class AddPage extends StatefulWidget{
-
+class AddPage extends StatefulWidget {
   @override
   _AddPageState createState() => _AddPageState();
 }
 
 class _AddPageState extends State<AddPage> {
-
   String _nom;
   String _ville;
   String _adresse;
@@ -25,12 +26,46 @@ class _AddPageState extends State<AddPage> {
   String img;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final DatabaseReference database = FirebaseDatabase.instance.reference().child("Terrain");
+  final DatabaseReference database =
+      FirebaseDatabase.instance.reference().child("Terrain");
+
+  File _image;
+
+  String imageUrl;
 
   List<Terrain> terrains = [];
 
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+      print('Image Path $_image');
+    });
+  }
+
+  Future uploadPic(BuildContext context) async {
+    String fileName = _image.path;
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    imageUrl = await taskSnapshot.ref.getDownloadURL() ;
+
+
+    setState(() {
+
+      print("Profile Picture uploaded");
+      print("\n\n\n\n${imageUrl}\n\n\n");
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text('Profile Picture Uploaded')));
+    });
+  }
+
   @override
-  initState(){
+  initState() {
+    imageUrl = null;
 
     DatabaseReference reference = FirebaseDatabase.instance.reference();
     reference.child('Terrain').once().then((DataSnapshot snapshot) {
@@ -50,7 +85,6 @@ class _AddPageState extends State<AddPage> {
             data[key]["latitude"],
             data[key]["longitude"]);
         terrains.add(terrain);
-
       }
       setState(() {
         print('lenght terrains: ${terrains.length}');
@@ -64,7 +98,6 @@ class _AddPageState extends State<AddPage> {
   double lng = Random.secure().nextDouble() * (-0.5 - (-1.5)) + 1.5;
 
   int index;
-
 
   Widget _buildNom() {
     return TextFormField(
@@ -181,6 +214,7 @@ class _AddPageState extends State<AddPage> {
       },
     );
   }
+
   Widget _buildLatitude() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Latitude'),
@@ -215,6 +249,16 @@ class _AddPageState extends State<AddPage> {
               _buildEtat(),
               _buildLongitude(),
               _buildLatitude(),
+              Container(
+                child: MaterialButton(
+                  color: Colors.deepPurple,
+                  child: Text(
+                    "Image",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: getImage,
+                ),
+              ),
               SizedBox(height: 100),
               RaisedButton(
                 child: Text(
@@ -225,6 +269,8 @@ class _AddPageState extends State<AddPage> {
                   if (!_formKey.currentState.validate()) {
                     return;
                   }
+
+                  uploadPic(context);
 
                   _formKey.currentState.save();
 
@@ -239,18 +285,19 @@ class _AddPageState extends State<AddPage> {
 
                   //Send to Database
                   setState(() {
-                    index = terrains.length+1;
+                    index = terrains.length + 1;
                   });
                   database.push().set({
-                    'id' : index,
-                    'nom' : _nom,
-                    'description' : _description,
-                    'adresse' : _adresse,
-                    'cp' : _cp,
-                    'ville' : _ville,
-                    'etat' : _etat,
-                    'latitude' : lat,
-                    'longitude' : lng,
+                    'id': index,
+                    'nom': _nom,
+                    'description': _description,
+                    'adresse': _adresse,
+                    'cp': _cp,
+                    'ville': _ville,
+                    'etat': _etat,
+                    'latitude': _latitude,
+                    'longitude': _longitude,
+                    'img' : imageUrl,
                   });
                 },
               )
