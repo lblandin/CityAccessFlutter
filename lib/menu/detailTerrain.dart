@@ -2,6 +2,7 @@ import 'package:CityAccess/Other/FadeAnimation.dart';
 import 'package:CityAccess/maps.dart';
 import 'package:CityAccess/menu/listTerrain.dart';
 import 'package:CityAccess/model/terrain.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -79,10 +80,14 @@ class _DetailTerrainPage extends State<DetailTerrainPage> {
                           child: ColorFiltered(
                             colorFilter: ColorFilter.mode(
                                 Colors.black38, BlendMode.darken),
-                            child: Image.network(
-                              terrains[widget.id].img,
+                            child: CachedNetworkImage(
+                              imageUrl: terrains[widget.id].img,
                               fit: BoxFit.cover,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(value: downloadProgress.progress),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
+
                           ),
                         ),
                       ),

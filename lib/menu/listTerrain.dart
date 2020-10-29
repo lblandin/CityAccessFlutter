@@ -85,7 +85,7 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) => Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(left: 10, right: 10, top: 010),
                       child: GestureDetector(
                         child: Card(
                           elevation: 5,
@@ -111,9 +111,7 @@ class _ListTerrainPageState extends State<ListTerrainPage> {
                                   ],
                                 ),
                               ),
-                              IconButton(
-                                icon: Icon(Icons.delete),
-                              ),
+
                             ],
                           ),
                         ),

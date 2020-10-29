@@ -80,7 +80,7 @@ class _ListActuPageState extends State<ListActuPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) => Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: GestureDetector(
                       child: Card(
                         elevation: 5,
@@ -108,9 +108,7 @@ class _ListActuPageState extends State<ListActuPage> {
                                 ],
                               ),
                             ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                            ),
+
                           ],
                         ),
                       ),
