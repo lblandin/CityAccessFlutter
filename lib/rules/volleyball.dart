@@ -1,3 +1,5 @@
+import 'package:CityAccess/model/rulesModel.dart';
+import 'package:CityAccess/widget/rulesWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,71 +9,35 @@ class VolleyballPage extends StatefulWidget{
 }
 
 class _VolleyballPageState extends State<VolleyballPage> {
+
+  RulesModel rm1 = new RulesModel("First Rules", "assets/icon/volleyball.png", "lkjhgfvbnkiugvbn,lj");
+  RulesModel rm2 = new RulesModel("First Rules", "assets/icon/volleyball.png", "lkjhgfvbnkiugvbn,lj");
+  RulesModel rm3 = new RulesModel("First Rules", "assets/icon/volleyball.png", "lkjhgfvbnkiugvbn,lj");
+  RulesModel rm4 = new RulesModel("First Rules", "assets/icon/volleyball.png", "lkjhgfvbnkiugvbn,lj");
+  RulesModel rm5 = new RulesModel("First Rules", "assets/icon/volleyball.png", "lkjhgfvbnkiugvbn,lj");
+
+  List<RulesModel> volleyRules = [];
+
+  @override
+  void initState() {
+
+    volleyRules.add(rm5);
+    volleyRules.add(rm4);
+    volleyRules.add(rm3);
+    volleyRules.add(rm2);
+    volleyRules.add(rm1);
+
+
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    //Now we need multiple widgets into a parent = "Container" widget
-    Widget titleSection = new Container(
-      padding: const EdgeInsets.all(10.0),//Top, Right, Bottom, Left
-      child: new Row(
-        children: <Widget>[
-          new Expanded(
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Container(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: new Text("Règles de volleyball",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0
-                      )),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-    final bottomTextSection = new Container(
-      padding: const EdgeInsets.all(20.0),
-      //How to show long text ?
-      child: new Text('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
-      Nulla facilisi. Vestibulum aliquam auctor aliquet. Quisque egestas ullamcorper venenatis. Aliquam condimentum tortor 
-      eget dolor tempus, ut scelerisque nibh tristique. Pellentesque metus erat, dapibus nec sapien sit amet, congue rutrum 
-      mi. Etiam ligula sapien, cursus interdum semper sit amet, mollis eu mauris. Integer nec egestas mauris, id scelerisque 
-      libero. Ut nibh purus, accumsan id ultricies id, gravida nec turpis. Suspendisse et facilisis diam.''',
-          style: new TextStyle(
-            color: Colors.grey[850],
-            fontSize: 16.0,
-          )
-      ),
-    );
-    final bottomSecondTextSection = new Container(
-      padding: const EdgeInsets.all(20.0),
-      //How to show long text ?
-      child: new Text('''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sodales auctor libero sit amet pulvinar. 
-      Nulla facilisi. Vestibulum aliquam auctor aliquet. Quisque egestas ullamcorper venenatis. Aliquam condimentum tortor 
-      eget dolor tempus, ut scelerisque nibh tristique. Pellentesque metus erat, dapibus nec sapien sit amet, congue rutrum 
-      mi. Etiam ligula sapien, cursus interdum semper sit amet, mollis eu mauris. Integer nec egestas mauris, id scelerisque 
-      libero. Ut nibh purus, accumsan id ultricies id, gravida nec turpis. Suspendisse et facilisis diam.''',
-          style: new TextStyle(
-              color: Colors.grey[850],
-              fontSize: 16.0
-          )
-      ),
-    );
-    //build function returns a "Widget"
     return new MaterialApp(
         title: "",
         home: new Scaffold(
-            body: new ListView(
-              children: <Widget>[
-                //You can add more widget bellow
-                titleSection,
-                bottomTextSection,
-                bottomSecondTextSection
-              ],
-            )
+            body: RulesWidget(context, "assets/bg_news.jpg", "Règles de Volleyball", volleyRules)
         )
     );//Widget with "Material design"
   }
