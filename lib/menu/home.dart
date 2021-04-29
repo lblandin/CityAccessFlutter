@@ -476,12 +476,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-    final bottomTextSection = new Container(
-      padding: const EdgeInsets.all(15.0),
-      //How to show long text ?
-      child: new Text("Toutes les actualités ici",
-          style: new TextStyle(color: Colors.grey[850], fontSize: 16.0)),
-    );
+    // final bottomTextSection = new Container(
+    //   padding: const EdgeInsets.all(15.0),
+    //   //How to show long text ?
+    //   child: new Text("Toutes les actualités ici",
+    //       style: new TextStyle(color: Colors.grey[850], fontSize: 16.0)),
+    // );
     //build function returns a "Widget"
     return new MaterialApp(
       title: "",
@@ -498,8 +498,8 @@ class _HomePageState extends State<HomePage> {
             titleSection,
             TerrainList(context),
             fourButtonsSection,
-            bottomTextSection,
-            ActuList(context)
+            //bottomTextSection,
+            //ActuList(context)
           ],
         ),
       ),

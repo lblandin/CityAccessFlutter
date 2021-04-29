@@ -39,7 +39,7 @@ class MainState extends State<_MainMenu> {
 
   final HomePage homePage = new HomePage();
   final ListTerrainPage listTerrainPage = new ListTerrainPage();
-  final ListActuPage listActuPage = new ListActuPage();
+  //final ListActuPage listActuPage = new ListActuPage();
   final ProfilPage profilPage = new ProfilPage();
   final FavoritePage favoritePage = new FavoritePage();
   final AddPage addPage = new AddPage();
@@ -52,18 +52,15 @@ class MainState extends State<_MainMenu> {
         return listTerrainPage;
         break;
       case 1:
-        return listActuPage;
-        break;
-      case 2:
         return homePage;
         break;
-      case 3:
+      case 2:
         return profilPage;
         break;
-      case 4:
+      case 3:
         return favoritePage;
         break;
-      case 5:
+      case 4:
         return addPage;
         break;
       default:
@@ -96,7 +93,7 @@ class MainState extends State<_MainMenu> {
         index: _pageIndex,
         items: <Widget>[
           Icon(Icons.dehaze, size: 25, color: Colors.white),
-          Icon(Icons.library_books, size: 25, color: Colors.white),
+          // Icon(Icons.library_books, size: 25, color: Colors.white),
           Icon(Icons.home, size: 25, color: Colors.white),
           Icon(Icons.person, size: 25, color: Colors.white),
           Icon(Icons.favorite, size: 25, color: Colors.white),
