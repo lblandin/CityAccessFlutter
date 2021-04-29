@@ -31,13 +31,7 @@ class _HandballPageState extends State<HandballPage> {
   @override
   void initState() {
 
-    handRules.add(rm1);
-    handRules.add(rm2);
-    handRules.add(rm3);
-    handRules.add(rm4);
-    handRules.add(rm5);
-    handRules.add(rm6);
-    handRules.add(rm7);
+    handRules.addAll([rm1, rm2, rm3, rm4, rm5, rm6, rm7]);
 
     super.initState();
   }
@@ -46,12 +40,8 @@ class _HandballPageState extends State<HandballPage> {
   @override
   Widget build(BuildContext context) {
 
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "",
-        home: new Scaffold(
+ Scaffold(
             body: RulesWidget(context, "assets/handball_court.jpg", "Règles de Handball", handRules)
-        )
     );//Widget with "Material design"
   }
 }

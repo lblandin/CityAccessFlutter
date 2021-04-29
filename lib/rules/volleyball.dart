@@ -40,29 +40,15 @@ class _VolleyballPageState extends State<VolleyballPage> {
   @override
   void initState() {
 
-    volleyRules.add(rm1);
-    volleyRules.add(rm2);
-    volleyRules.add(rm3);
-    volleyRules.add(rm4);
-    volleyRules.add(rm5);
-    volleyRules.add(rm6);
-    volleyRules.add(rm7);
-    volleyRules.add(rm8);
-    volleyRules.add(rm9);
-
-
+    volleyRules.addAll([rm1, rm2, rm3,rm4, rm5, rm6, rm7, rm8, rm9]);
     super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "",
-        home: new Scaffold(
-            body: RulesWidget(context, "assets/volleyball_court.jpg", "Règles de Volleyball", volleyRules)
-        )
+
+    return Scaffold(body: RulesWidget(context, "assets/volleyball_court.jpg", "Règles de Volleyball", volleyRules)
     );//Widget with "Material design"
   }
 }
