@@ -58,6 +58,7 @@ class _VolleyballPageState extends State<VolleyballPage> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "",
         home: new Scaffold(
             body: RulesWidget(context, "assets/volleyball_court.jpg", "Règles de Volleyball", volleyRules)

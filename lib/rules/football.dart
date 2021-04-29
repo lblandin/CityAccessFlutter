@@ -55,6 +55,7 @@ class _FootballPageState extends State<FootballPage> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "",
         home: new Scaffold(
             body: RulesWidget(

@@ -47,6 +47,7 @@ class _HandballPageState extends State<HandballPage> {
   Widget build(BuildContext context) {
 
     return new MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "",
         home: new Scaffold(
             body: RulesWidget(context, "assets/handball_court.jpg", "Règles de Handball", handRules)
